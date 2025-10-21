@@ -1,0 +1,45 @@
+//@version=6
+strategy("主力吸筹 VAR5 策略（Pine v6 还原版）", shorttitle="VAR5 Acc Strategy", overlay=false, precision=4,
+     initial_capital=100000, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+// —— 参数（可按需调整）——
+lenLLV  = input.int(33,  "LLV周期")
+lenSMA1 = input.int(13,  "SMA1(分子)")
+lenSMA2 = input.int(10,  "SMA2(分母)")
+lenEMA1 = input.int(10,  "EMA1")
+lenEMA2 = input.int(3,   "EMA2")
+showLine= input.bool(false, "同时画VAR5曲线")
+
+// —— 前置计算（同花顺：SMA(X,N,1)≈ ta.rma(X,N)）——
+avg     = (low + open + close + high) / 4.0
+avgPrev = nz(avg[1], avg)
+
+num     = ta.rma(math.abs(low - avgPrev), lenSMA1)
+denRaw  = ta.rma(math.max(low - avgPrev, 0.0), lenSMA2)
+den     = math.max(denRaw, 1e-10)                   // 防止除以0
+var2    = num / den
+var3    = ta.ema(var2, lenEMA1)
+var4    = ta.lowest(low, lenLLV)
+var5    = ta.ema(low <= var4 ? var3 : 0.0, lenEMA2) // = VAR5（主力吸筹强度）
+
+// —— 柱体显示（等价 STICK：红=上升，绿=下降）——
+isRed   = var5 > nz(var5[1])
+isGreen = var5 < nz(var5[1])
+
+plot(isRed   ? var5 : na, title="主力进场(红)", style=plot.style_columns, color=color.red,   linewidth=2)
+plot(isGreen ? var5 : na, title="洗盘(绿)",     style=plot.style_columns, color=color.green, linewidth=2)
+hline(0, "零线", color=color.new(color.gray, 75))
+
+// 可选：画出 VAR5 折线
+plot(showLine ? var5 : na, title="VAR5", color=color.new(color.white, 0), linewidth=1)
+
+// —— 策略逻辑 ——
+if isRed
+    strategy.entry("VAR5-Long", strategy.long, comment="VAR5 多头进场")
+
+if isGreen
+    strategy.close("VAR5-Long", comment="VAR5 多头离场")
+
+// （可选）提示信号
+alertcondition(isRed,   title="VAR5 上升（红柱）", message="VAR5 上升（红柱）")
+alertcondition(isGreen, title="VAR5 下降（绿柱）", message="VAR5 下降（绿柱）")
