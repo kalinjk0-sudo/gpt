@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>凌畅｜个人主页</title>
+  <meta name="description" content="这是我的个人网站，展示简介、项目和联系方式。" />
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#11131a;
+      --text:#e6e6e6;
+      --muted:#a8b0bd;
+      --accent:#6ae3ff;
+      --accent-2:#8cffc7;
+      --border:#1b1f2a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9fc;
+        --card:#ffffff;
+        --text:#0f172a;
+        --muted:#475569;
+        --accent:#007aff;
+        --accent-2:#10b981;
+        --border:#e2e8f0;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 80% -10%, rgba(106,227,255,.15), transparent 60%),
+                  radial-gradient(800px 500px at -10% 10%, rgba(140,255,199,.12), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap{max-width:980px; margin:0 auto; padding:32px 20px 80px}
+
+    header{
+      display:grid; grid-template-columns: 96px 1fr; gap:24px; align-items:center;
+      padding:24px; border:1px solid var(--border); border-radius:20px; background:var(--card); box-shadow:var(--shadow);
+    }
+    .avatar{width:96px; height:96px; border-radius:20px; background:#cbd5e1; overflow:hidden; display:grid; place-items:center; border:1px solid var(--border)}
+    .avatar span{font-weight:700; font-size:28px; color:#0f172a}
+    .title h1{margin:0 0 6px; font-size:28px; letter-spacing:.2px}
+    .title p{margin:0; color:var(--muted)}
+
+    .badges{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap}
+    .badge{font-size:12px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.04));}
+
+    .cta{margin-top:16px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); text-decoration:none; color:var(--text); background:var(--card)}
+    .btn.primary{background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#04202b; border:none; font-weight:700}
+
+    .grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-top:22px}
+    .card{padding:18px; border:1px solid var(--border); border-radius:16px; background:var(--card); box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0; color:var(--muted)}
+
+    footer{margin-top:32px; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:14px}
+    .social{display:flex; gap:10px}
+    .social a{display:inline-flex; padding:8px; border:1px solid var(--border); border-radius:12px; text-decoration:none; color:inherit}
+
+    .section-title{margin:34px 0 10px; font-size:18px; letter-spacing:.3px; color:var(--muted)}
+    code{background:rgba(148,163,184,.18); padding:2px 6px; border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- 顶部名片 -->
+    <header>
+      <!-- 头像占位，上传 profile.jpg 后把下面的 <span> 换成 <img src="profile.jpg" alt="avatar" width="96" height="96"> -->
+      <div class="avatar"><span>LC</span></div>
+      <div class="title">
+        <h1>你的名字（Lingchang）</h1>
+        <p>金融与数据爱好者｜正在搭建我的开源项目集</p>
+        <div class="badges">
+          <div class="badge">GitHub Pages</div>
+          <div class="badge">HTML/CSS</div>
+          <div class="badge">Open Source</div>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#projects">查看项目</a>
+          <a class="btn" href="mailto:you@example.com" aria-label="email">
+            <!-- 信封图标 -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 0 8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Email
+          </a>
+          <a class="btn" href="https://github.com/你的用户名" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 项目列表 -->
+    <h2 id="projects" class="section-title">精选项目 Projects</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Project A · 数据可视化</h3>
+        <p>简要说明：使用 Python + ECharts 绘制交互图表。<br>👉 <a href="#" target="_blank" rel="noopener">查看仓库</a></p>
+      </div>
+      <div class="card">
+        <h3>Project B · SEO 工具脚本</h3>
+        <p>简要说明：批量生成元数据与站内链接建议。<br>👉 <a href="#" target="_blank" rel="noopener">查看仓库</a></p>
+      </div>
+      <div class="card">
+        <h3>Project C · 个人博客</h3>
+        <p>简要说明：基于 GitHub Pages + Jekyll 的博客模板。<br>👉 <a href="#" target="_blank" rel="noopener">查看仓库</a></p>
+      </div>
+    </div>
+
+    <!-- 关于与联系方式 -->
+    <h2 class="section-title">关于我 About</h2>
+    <div class="card">
+      <p>这里写一句你的简介：比如「我目前在 UEA 学习金融，喜欢篮球与算法交易」。
+      网站使用 <code>GitHub Pages</code> 部署，纯静态，无需服务器。</p>
+    </div>
+
+    <footer>
+      <div>© <span id="year"></span> 凌畅</div>
+      <div class="social">
+        <a href="mailto:you@example.com" title="Email" aria-label="Email">@</a>
+        <a href="https://github.com/你的用户名" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">GH</a>
+        <a href="https://www.linkedin.com/in/your-id" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">in</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 动态年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
